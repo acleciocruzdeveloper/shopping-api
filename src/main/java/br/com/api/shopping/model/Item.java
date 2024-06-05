@@ -1,7 +1,7 @@
 package br.com.api.shopping.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Entity;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "item")
+@Embeddable
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Item implements Serializable {
     @Serial
