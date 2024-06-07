@@ -2,9 +2,6 @@ package br.com.api.shopping.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +19,7 @@ import java.io.Serializable;
 public class Item implements Serializable {
     @Serial
     private static final long serialVersionUID = -5453732339782816953L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String productIdentifier;
     private Float price;
 }
