@@ -1,6 +1,7 @@
 package br.com.api.shopping.service;
 
 import br.com.api.shopping.dto.ShopDto;
+import br.com.api.shopping.model.Shop;
 import br.com.api.shopping.repositories.IShopRepository;
 import br.com.api.shopping.util.ConverterUtil;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,6 +42,11 @@ public class ShopService {
                 .toList();
     }
 
+    public ShopDto findById(long productId) {
+        return shopRepository.findById(productId)
+                .map(util::converter)
+                .orElseThrow(() -> new RuntimeException("product with id: " + productId + "not found"));
 
+    }
 
 }
