@@ -19,4 +19,8 @@ public class ConverterUtil {
     public ShopDto converter(Shop shop) {
         return modelMapper.map(shop, ShopDto.class);
     }
+
+    public Shop converter(ShopDto dto) {
+        return modelMapper.map(dto, Shop.class);
+    }
 }

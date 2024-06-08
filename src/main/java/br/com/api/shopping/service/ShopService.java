@@ -8,9 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -47,6 +47,17 @@ public class ShopService {
                 .map(util::converter)
                 .orElseThrow(() -> new RuntimeException("product with id: " + productId + "not found"));
 
+    }
+
+    public ShopDto save(ShopDto dto) {
+        dto.setTotal(dto.getItemsDto().stream()
+                .map(itemDto -> itemDto.getPrice())
+                .reduce((float) 0, Float::sum));
+
+        Shop shop = util.converter(dto);
+        shop.setDate(Instant.now());
+        shop = shopRepository.save(shop);
+        return util.converter(shop);
     }
 
 }
