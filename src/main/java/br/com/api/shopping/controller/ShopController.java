@@ -6,13 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -31,5 +27,17 @@ public class ShopController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ShopDto>> getShops(@PathVariable String userIdentifier) {
         return ResponseEntity.ok().body(shopService.getByUser(userIdentifier));
+    }
+
+    @GetMapping("/shopping/shop_by_date")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<ShopDto>> getShops(@RequestBody ShopDto dto) {
+        return ResponseEntity.ok().body(shopService.getByDate(dto));
+    }
+
+    @GetMapping("/shopping/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<ShopDto> getById(@PathVariable long id) {
+        return ResponseEntity.ok().body(shopService.findById(id));
     }
 }
