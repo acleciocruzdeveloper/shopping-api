@@ -1,14 +1,15 @@
 package br.com.api.shopping.service;
 
+import br.com.api.shopping.dto.ItemDto;
 import br.com.api.shopping.dto.ShopDto;
 import br.com.api.shopping.model.Shop;
 import br.com.api.shopping.repositories.IShopRepository;
-import br.com.api.shopping.util.ConverterUtil;
+import br.com.api.shopping.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -16,47 +17,45 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopService {
     private final IShopRepository shopRepository;
-    private final ConverterUtil util;
+    private final MapperUtil mapper;
 
 
     public List<ShopDto> getAll() {
         return shopRepository.findAll()
                 .stream()
-                .map(util::converter)
+                .map(mapper::convertToDTO)
                 .toList();
     }
 
     public List<ShopDto> getByUser(String userIdentifier) {
         return shopRepository.findAllByUserIdentifier(userIdentifier)
                 .stream()
-                .map(util::converter)
+                .map(mapper::convertToDTO)
                 .toList();
     }
 
     public List<ShopDto> getByDate(ShopDto dto) {
-        return shopRepository.findAllByDateGreaterThanEqual(
-                        dto.getDate()
-                ).stream()
-                .map(util::converter)
+        return shopRepository.findAllByDateGreaterThanEqual(dto.getDate())
+                .stream()
+                .map(mapper::convertToDTO)
                 .toList();
     }
 
     public ShopDto findById(long productId) {
         return shopRepository.findById(productId)
-                .map(util::converter)
+                .map(mapper::convertToDTO)
                 .orElseThrow(() -> new RuntimeException("product with id: " + productId + "not found"));
 
     }
 
     public ShopDto save(ShopDto dto) {
-        dto.setTotal(dto.getItemsDto().stream()
-                .map(itemDto -> itemDto.getPrice())
+        dto.setTotal(dto.getItems().stream()
+                .map(ItemDto::getPrice)
                 .reduce((float) 0, Float::sum));
-
-        Shop shop = util.converter(dto);
-        shop.setDate(Instant.now());
-        shop = shopRepository.save(shop);
-        return util.converter(shop);
+        Shop shop = mapper.covertToEntity(dto);
+        shop.setDate(new Date());
+        Shop saved = shopRepository.save(shop);
+        return mapper.convertToDTO(saved);
     }
 
 }

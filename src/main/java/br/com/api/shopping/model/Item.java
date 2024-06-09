@@ -22,4 +22,5 @@ public class Item implements Serializable {
 
     private String productIdentifier;
     private Float price;
+
 }

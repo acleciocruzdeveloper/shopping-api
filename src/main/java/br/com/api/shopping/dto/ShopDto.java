@@ -1,16 +1,18 @@
 package br.com.api.shopping.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
-@Data
-@Builder
+@Getter
+@Setter
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShopDto {
     @NotBlank(message = "user identifier field cannot blank")
@@ -18,7 +20,8 @@ public class ShopDto {
     @NotNull
     private Float total;
     @NotNull
-    private Instant date;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private Date date;
     @NotNull
-    private List<ItemDto> itemsDto;
+    private List<ItemDto> items;
 }

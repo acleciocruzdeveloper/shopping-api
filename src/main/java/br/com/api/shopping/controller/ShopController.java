@@ -40,4 +40,10 @@ public class ShopController {
     public ResponseEntity<ShopDto> getById(@PathVariable long id) {
         return ResponseEntity.ok().body(shopService.findById(id));
     }
+
+    @PostMapping("/shopping")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ShopDto create(@RequestBody ShopDto dto) {
+        return shopService.save(dto);
+    }
 }
