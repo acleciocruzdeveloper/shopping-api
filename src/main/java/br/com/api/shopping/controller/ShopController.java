@@ -46,4 +46,13 @@ public class ShopController {
     public ShopDto create(@RequestBody ShopDto dto) {
         return shopService.save(dto);
     }
+
+//    @GetMapping("/shopping/report/search")
+//    public List<ShopDto> getShopbyFilter(
+//            @RequestParam(name = "dataInicio") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicio,
+//            @RequestParam(name = "dataFim", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFim,
+//            @RequestParam(name = "valorMinimo", required = false) Float valorMinimo) {
+//        return shopService.getShopByFilter(dataInicio, dataFim, valorMinimo);
+//    }
+
 }

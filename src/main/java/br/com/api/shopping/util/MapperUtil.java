@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 @RequiredArgsConstructor
 public class MapperUtil {
@@ -21,7 +19,7 @@ public class MapperUtil {
         shopDto.setItems(shop.getItems()
                 .stream()
                 .map(item -> modelMapper.map(item, ItemDto.class))
-                .collect(Collectors.toList()));
+                .toList());
         return shopDto;
     }
 

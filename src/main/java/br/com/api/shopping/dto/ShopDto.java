@@ -7,12 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShopDto {
     @NotBlank(message = "user identifier field cannot blank")
@@ -21,7 +20,7 @@ public class ShopDto {
     private Float total;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private Date date;
+    private LocalDateTime date;
     @NotNull
     private List<ItemDto> items;
 }

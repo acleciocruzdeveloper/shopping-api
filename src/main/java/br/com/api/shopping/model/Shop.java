@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -25,7 +25,7 @@ public class Shop implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userIdentifier;
-    private Date date;
+    private LocalDateTime date;
     private Float total;
 
     @ElementCollection(fetch = FetchType.EAGER)
