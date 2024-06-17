@@ -16,6 +16,27 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>test-no-db</id>
+			<properties>
+				<skipTests>false</skipTests>
+				<database.driver-class-name>org.h2.Driver</database.driver-class-name>
+				<database.url>jdbc:h2:mem:microservices;DB_CLOSE_DELAY=-1</database.url>
+				<database.username>sa</database.username>
+				<database.password></database.password>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -67,7 +88,6 @@
 			<artifactId>logback-classic</artifactId>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
