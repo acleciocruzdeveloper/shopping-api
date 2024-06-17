@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -53,9 +54,16 @@ public class ShopService {
                 .map(ItemDto::getPrice)
                 .reduce((float) 0, Float::sum));
         Shop shop = mapper.covertToEntity(dto);
-        shop.setDate(new Date());
+        shop.setDate(LocalDateTime.now());
         Shop saved = shopRepository.save(shop);
         return mapper.convertToDTO(saved);
     }
 
+//    public List<ShopDto> getShopByFilter(LocalDate dataInicio, LocalDate dataFim, Float valorMinimo) {
+//        return shopRepository.getShopByFilters(dataInicio, dataFim, valorMinimo)
+//                .stream()
+//                .map(mapper::convertToDTO)
+//                .toList();
+//
+//    }
 }
