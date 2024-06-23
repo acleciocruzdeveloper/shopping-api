@@ -17,10 +17,10 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package pom.xml
 
     - name: Run tests with Maven
-      run: mvn -B test -P test-no-db --file pom.xml
+      run: mvn -B test -P test-no-db pom.xml
 
     - name: Upload Test Results
       if: always()
